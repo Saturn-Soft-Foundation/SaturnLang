@@ -1,16 +1,16 @@
-code = define*
+code = declaration*
 
-# defines
+# declarations
 
-define = function | constant | struct
+declaration = function | constant | struct
 
-function = "fn" ID "(" function_args ")" ("->" TY)? block
-function_args = (function_arg),*
+function = "fn" ID "(" function_arg,* ")" ("->" type)? block
+function_arg = ID ":" type
 
-constant = "const" ID ":" TY "=" expr
+constant = "const" ID ":" type "=" expr
 
 struct = "struct" "{" (struct_field),* "}"
-struct_field = ID ":" TY
+struct_field = ID ":" type
 
 # block
 
@@ -25,7 +25,7 @@ statement =
     | expr_statement
     | return_statement
     | break_statement
-    | continue_statement;
+    | continue_statement
 
 if_statement = "if" expr block ("else" "if" expr block)* ("else" block)?
 
@@ -33,7 +33,7 @@ while_statement = "while" expr block
 
 let_statement = "let" ("mut")? ID ("=" expr)? ";"
 
-expr_statement = assign | expr
+expr_statement = assign | expr ";"
 
 return_statement = "return" expr? ";"
 
@@ -74,9 +74,13 @@ add =
     | mul
 
 mul = 
-      mul '*'  unary
-    | mul '/'  unary
-    | unary
+      mul '*' cast
+    | mul '/' cast
+    | cast
+
+cast = 
+	  cast "as" type
+	| unary
 
 unary = 
       '!' fact
@@ -85,8 +89,10 @@ unary =
     | '*' fact
     | fact
 
-fact = NUM | ID | parenthesis | call | access
+fact = literal | parenthesis | call | access
 
 parenthesis = '(' expr ')'
 call = ID '(' (expr),* ')'
 access = fact '.' ID
+
+type = ID | "*" type
