@@ -1,2 +1,2 @@
 [workspace]
-members = ["compiler/frontend/saturnc_ast"]
+members = ["compiler/frontend/saturnc_ast", "compiler/frontend/saturnc_parse"]
