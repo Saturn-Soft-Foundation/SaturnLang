@@ -1,5 +1,3 @@
-use pos::Pos;
-
 mod declaration;
 mod expr;
 mod operators;
@@ -9,6 +7,7 @@ mod statement;
 pub use declaration::*;
 pub use expr::*;
 pub use operators::*;
+pub use pos::Pos;
 pub use statement::*;
 
 #[derive(Debug, Clone, PartialEq)]
