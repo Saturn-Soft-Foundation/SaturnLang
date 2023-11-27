@@ -1,4 +1,4 @@
-use super::pos::Pos;
+use saturnc_ast::Pos;
 use super::token_tag::TokenTag;
 
 #[derive(Clone, Copy, Debug)]
